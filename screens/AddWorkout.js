@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Style } from "../styles/Style";
 import { Calendar } from "react-native-calendars";
+import { SettingsContext, WorkoutContext } from "../components/Contexts";
 
 export default function AddWorkout() {
 
@@ -13,6 +14,7 @@ export default function AddWorkout() {
 	const [visible, setVisible] = useState (false)
 	const [date, setDate] = useState ('')
 	const {setWorkouts} = useContext(WorkoutContext)
+	const {lengthUnit} = useContext(SettingsContext)
 
 	function dateSelected(day) {
 		setVisible(false)
@@ -24,7 +26,7 @@ export default function AddWorkout() {
 		setDistance('')
 		setDuration('')
 	}
-	
+
 	function checkDistance() {
 		if (distance < 0) {
 			Alert.alert('Alert','Distance can not be smaller than zero.');
@@ -51,8 +53,8 @@ export default function AddWorkout() {
 					label: 'Run',
 					icon: props => <MaterialIcons name="directions-run" {...props} />
 				},
-				{ 
-					value: 'Swim', 
+				{
+					value: 'Swim',
 					label: 'Swim',
 					icon: props => <MaterialCommunityIcons name="swim" {...props} />
 				},
@@ -64,7 +66,7 @@ export default function AddWorkout() {
 				]}
 			/>
 
-			<TextInput 
+			<TextInput
 				style={Style.textInput}
 				mode="outlined"
 				label={lengthUnit === 'km' ? 'Distance (km)' : 'Distance (miles)'}
@@ -83,8 +85,8 @@ export default function AddWorkout() {
 				onBlur={checkDuration}
 				keyboardType = 'numeric' />
 
-			<Modal 
-				visible={visible} 
+			<Modal
+				visible={visible}
 				transparent={false}
 				onRequestClose={()=>setVisible(!modalVisible)}>
 				<Calendar theme={{todayTextColor: '#ceb92b', textSectionTitleColor:'#ceb92b', arrowColor:'#ceb92b' }} onDayPress={dateSelected} />

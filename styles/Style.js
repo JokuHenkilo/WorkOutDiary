@@ -46,6 +46,12 @@ const Style = StyleSheet.create({
 	addButton: {
 		marginTop: 10
 	},
+	settingsContainer: {
+		padding: 15
+	},
+	settingsLabel: {
+		marginBottom: 10
+	},
 	listContainer: {
 		padding: 15
 	},

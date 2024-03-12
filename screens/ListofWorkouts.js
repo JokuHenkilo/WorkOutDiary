@@ -1,5 +1,6 @@
 import { FlatList, View } from "react-native";
 import { Divider, Text } from "react-native-paper";
+import { SettingsContext, WorkoutContext } from "../components/Contexts";
 import { useContext } from "react";
 import { Style } from "../styles/Style";
 
@@ -22,9 +23,19 @@ export default function ListOfWorkOuts() {
 }
 
 function Item({workout}) {
+	const {lengthUnit} = useContext(SettingsContext)
 
 	let d = workout.date.day + '.' + workout.date.month + '.' + workout.date.year
 	let unit = lengthUnit === 'km' ? 'km' : 'miles'
+	let distance = changeDistance(workout.distance, 'km', lengthUnit)
+
+	function changeDistance(distance) {
+		if (lengthUnit === 'miles') {
+			return distance * 0.6;
+		} else {
+			return distance;
+		}
+	}
 
 	return (
 		<View>
